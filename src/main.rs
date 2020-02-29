@@ -3,13 +3,13 @@
 
 extern crate ggez;
 
-mod imgui_wrapper;
+// mod imgui_wrapper;
 
 // extern crate nalgebra;
 
 // use rand::{thread_rng, Rng};
 // use nalgebra::{Point2, Vector2};
-use crate::imgui_wrapper::ImGuiWrapper;
+// use crate::imgui_wrapper::ImGuiWrapper;
 use ggez::{
     conf,
     event::{self, EventHandler, KeyCode, KeyMods, MouseButton},
@@ -75,13 +75,6 @@ const ASSETS_DIR_NAME: &str = "assets";
 // Loading a config file depends on having FS (or we can just fake our way around it
 // by creating an FS and then throwing it away; the costs are not huge.)
 fn main() {
-    // Create a dummy window so we can get monitor scaling information
-    let cb = ggez::ContextBuilder::new("", "");
-    let (_ctx, events_loop) = &mut cb.build().unwrap();
-    let hidpi_factor = events_loop.get_primary_monitor().get_hidpi_factor() as f32;
-    println!("main hidpi_factor = {}", hidpi_factor);
-
-
     let window_mode = conf::WindowMode::default().resizable(false).dimensions(750.0, 500.0);
     let window_conf = conf::WindowSetup::default()
         .title("Big Foil")
@@ -97,7 +90,7 @@ fn main() {
     // Create an instance of your event handler.
     // Usually, you should provide it with the Context object to
     // use when setting your game up.
-    let mut game = MainState::new(&mut ctx, hidpi_factor).unwrap();
+    let mut game = MainState::new(&mut ctx).unwrap();
 
     // Run!
     match event::run(&mut ctx, &mut event_loop, &mut game) {
@@ -110,21 +103,19 @@ fn main() {
 struct MainState {
     spritebatch: graphics::spritebatch::SpriteBatch,
     pos_x: f32,
-    imgui_wrapper: ImGuiWrapper,
-    hidpi_factor: f32,
+    // imgui_wrapper: ImGuiWrapper,
 }
 
 impl MainState {
-    fn new(mut ctx: &mut Context, hidpi_factor: f32) -> GameResult<MainState> {
+    fn new(mut ctx: &mut Context) -> GameResult<MainState> {
         // Load/create resources such as images here.
         let image = graphics::Image::new(ctx, "/tile.png").unwrap();
         let batch = graphics::spritebatch::SpriteBatch::new(image);
-        let imgui_wrapper = ImGuiWrapper::new(&mut ctx);
+        // let imgui_wrapper = ImGuiWrapper::new(&mut ctx);
 
         let state = MainState { spritebatch: batch,
             pos_x: 0.0,
-            imgui_wrapper,
-            hidpi_factor
+            // imgui_wrapper,
         };
 
         Ok(state)
@@ -176,7 +167,7 @@ impl EventHandler for MainState {
 
         // Render game UI
         {
-            self.imgui_wrapper.render(ctx, self.hidpi_factor);
+            // self.imgui_wrapper.render(ctx, self.hidpi_factor);
         }
 
         // Draw code here...
