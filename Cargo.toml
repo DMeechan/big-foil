@@ -4,14 +4,21 @@ version = "0.1.0"
 authors = ["Daniel Meechan, Adriana Cucu, Andrew Ferguson"]
 edition = "2018"
 
+[workspace]
+members = ["zgui", "zscene"]
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
 ggez = "0.5.0"
+log = "0.4"
 gfx_core = "0.9"
 gfx_device_gl = "0.16"
 image = "0.21"
 imgui = "0.1.0"
 imgui-gfx-renderer = "0.1.0"
+ui = { path = "zgui", package = "zgui" }
+scene = { path = "zscene", package = "zscene" }
+# zcomponents = { path = "zcomponents" }
 # rand = "0.7"
 # minimp3 = "0.3.3"
 # nalgebra = { version = "0.19", features = ["mint"] }
@@ -21,8 +28,6 @@ imgui-gfx-renderer = "0.1.0"
 #   "nalgebra"
 # ], rev = "6860447e445a6fa0802ac9d85da4b7425859df7d" }
 # structopt = "0.3"
-
 # [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-
 # [target.wasm32-unknown-unknown.dependencies]
 # rand = { version = "0.7", features = ["stdweb"] }
