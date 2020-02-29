@@ -6,15 +6,23 @@ edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-ggez = "0.5"
-nalgebra = { version = "0.19", features = ["mint"] }
-# ggwp-zgui = { git = "https://github.com/ozkriff/zemeroth" }
-
-[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 ggez = "0.5.0"
-structopt = "0.3"
-rand = "0.7"
+gfx_core = "0.9"
+gfx_device_gl = "0.16"
+image = "0.21"
+imgui = "0.1.0"
+imgui-gfx-renderer = "0.1.0"
+# rand = "0.7"
+# minimp3 = "0.3.3"
+# nalgebra = { version = "0.19", features = ["mint"] }
+# ggwp-zgui = { git = "https://github.com/ozkriff/zemeroth" }
+# ggwp-zscene = { git = "https://github.com/ozkriff/zemeroth" }
+# good-web-game = { git = "https://github.com/not-fl3/good-web-game", features = [
+#   "nalgebra"
+# ], rev = "6860447e445a6fa0802ac9d85da4b7425859df7d" }
+# structopt = "0.3"
 
-[target.wasm32-unknown-unknown.dependencies]
-good-web-game = { git = "https://github.com/not-fl3/good-web-game"}#, features = ["nalgebra"] }
-rand = { version = "0.7", features = ["stdweb"] }
+# [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+
+# [target.wasm32-unknown-unknown.dependencies]
+# rand = { version = "0.7", features = ["stdweb"] }
