@@ -12,12 +12,14 @@ use std::path::Path;
 // use rand::{thread_rng, Rng};
 // use nalgebra::{Point2, Vector2};
 use ggez::{
+    event::{self, EventHandler}, //, KeyCode, KeyMods},
+    graphics,
+    mint::Point2,
     // conf,
     timer,
-    event::{self, EventHandler},//, KeyCode, KeyMods},
-    graphics,
-    Context, ContextBuilder, GameResult,
-    mint::{Point2}
+    Context,
+    ContextBuilder,
+    GameResult,
 };
 
 // /// Create a unit vector representing the
@@ -102,13 +104,11 @@ struct MainState {
 }
 
 impl MainState {
-    fn new(ctx: &mut Context) -> GameResult<MainState>{
+    fn new(ctx: &mut Context) -> GameResult<MainState> {
         // Load/create resources such as images here.
         let image = graphics::Image::new(ctx, "/tile.png").unwrap();
         let batch = graphics::spritebatch::SpriteBatch::new(image);
-        let state = MainState {
-            spritebatch: batch
-        };
+        let state = MainState { spritebatch: batch };
 
         Ok(state)
     }
@@ -117,7 +117,11 @@ impl MainState {
 impl EventHandler for MainState {
     fn update(&mut self, ctx: &mut Context) -> GameResult {
         if timer::ticks(ctx) % 100 == 0 {
-            println!("Average FPS: {} | Delta time frame: {:?}", timer::fps(ctx), timer::delta(ctx));
+            println!(
+                "Average FPS: {} | Delta time frame: {:?}",
+                timer::fps(ctx),
+                timer::delta(ctx)
+            );
         }
 
         Ok(())
@@ -136,8 +140,20 @@ impl EventHandler for MainState {
         )?;
         graphics::draw(ctx, &circle, graphics::DrawParam::default())?;
 
-        let image = graphics::Image::new(ctx, "/tile.png").unwrap();
-        graphics::draw(ctx, &image, graphics::DrawParam::default())?;
+        for x in 0..10 {
+            for y in (0..100).step_by(10) {
+                let x = x as f32;
+                let y = y as f32;
+                let p = graphics::DrawParam::new().dest(Point2 { x: x * 50.0, y: y * 50.0 });
+                self.spritebatch.add(p);
+            }
+        }
+
+        graphics::draw(ctx, &self.spritebatch, graphics::DrawParam::default())?;
+        self.spritebatch.clear();
+
+        // let image = graphics::Image::new(ctx, "/asia.svg.png").unwrap();
+        // graphics::draw(ctx, &image, graphics::DrawParam::default())?;
 
         // let font = graphics::Font::new(ctx, "blah.ttf")?;
 
